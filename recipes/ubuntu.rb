@@ -25,3 +25,11 @@ service("apparmor") { action [:stop,:disable] }
 
 #turn off byobu
 file("/etc/profile.d/Z98-byobu") { action :delete }
+
+#turn off whoopsie (Ubuntu crash database submission daemon)
+service("whoopsie") do
+  action [:stop,:disable]
+  ignore_failure true
+end
+
+package("whoopsie") { action :purge }
