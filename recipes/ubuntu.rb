@@ -33,3 +33,6 @@ service("whoopsie") do
 end
 
 package("whoopsie") { action :purge }
+
+# if this is ever on a server...
+package("unity-lens-shopping") { action :purge }
