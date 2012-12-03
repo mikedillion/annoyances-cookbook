@@ -19,7 +19,7 @@ Does an "apt-get update", turns off apparmor and turns off byobu. Removes whoops
 
 Usage
 =====
-Include the `annoyances` recipe in your run list and it will make the various changes, then remove itself from the node's run list on completion.
+Include the `annoyances` recipe in your run list and it will make the various changes, then remove itself from the node's run list on completion. If you want to keep enforcing the `annoyances` with each run, directly include the operating system-specific recipe instead of the `default` recipe.
 
 License and Author
 ==================
