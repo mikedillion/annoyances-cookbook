@@ -15,7 +15,7 @@ Removes any preexisting firewall rules, turns off SELinux, uninstalls apache if 
 
 ubuntu
 ------
-Does an "apt-get update", turns off apparmor and turns off byobu. Removes whoopsie and unity-lens-shopping if this ever got on a server. Currently Ubuntu-only.
+Does an "apt-get update", turns off apparmor and turns off byobu. Removes whoopsie, popularity-contest, and unity-lens-shopping if this ever got on a server. Currently Ubuntu-only.
 
 Usage
 =====
