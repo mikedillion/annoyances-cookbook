@@ -17,8 +17,11 @@
 # limitations under the License.
 #
 
-#freshen up the apt repository
-execute("apt-get update") { ignore_failure true }.run_action(:run)
+#freshen up the apt repository, but not conflicting with the apt recipe
+execute("apt-get-update") do
+  command "apt-get update"
+  ignore_failure true
+end.run_action(:run)
 
 #turn off apparmor
 service("apparmor") { action [:stop,:disable] }
@@ -32,10 +35,8 @@ service("whoopsie") do
   ignore_failure true
 end
 
-package("whoopsie") { action :purge }
-
-# if this is ever on a server...
-package("unity-lens-shopping") { action :purge }
-
-# remove popularity-contest (http://popcon.ubuntu.com/)
-package("popularity-contest") {action :purge }
+%w{popularity-contest unity-lens-shopping whoopsie}.each do |pkg|
+  package pkg do
+    action :purge
+  end
+end
