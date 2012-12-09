@@ -36,3 +36,6 @@ package("whoopsie") { action :purge }
 
 # if this is ever on a server...
 package("unity-lens-shopping") { action :purge }
+
+# remove popularity-contest (http://popcon.ubuntu.com/)
+package("popularity-contest") {action :purge }
