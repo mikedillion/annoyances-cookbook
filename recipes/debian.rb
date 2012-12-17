@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: annoyances
-# Recipe:: rhel
+# Recipe:: debian
 #
 # Copyright 2012, Opscode, Inc.
 #
@@ -17,19 +17,26 @@
 # limitations under the License.
 #
 
-#delete any preexisting firewall rules
-execute("iptables -F") { ignore_failure true }.run_action(:run)
-
-#turn off SELinux
-execute("setenforce 0") { ignore_failure true }.run_action(:run)
-
-execute"rpm --nodeps -e httpd" do
+#freshen up the apt repository, but not conflicting with the apt recipe
+execute("apt-get-update") do
+  command "apt-get update"
   ignore_failure true
-  not_if do
-    node['recipes'].include?("apache2") ||
-      node.run_state[:seen_recipes].include?("apache2")
-  end
+end.run_action(:run)
+
+#turn off apparmor
+service("apparmor") { action [:stop,:disable] }
+
+#turn off byobu
+file("/etc/profile.d/Z98-byobu") { action :delete }
+
+#turn off whoopsie (Ubuntu crash database submission daemon)
+service("whoopsie") do
+  action [:stop,:disable]
+  ignore_failure true
 end
 
-#remove any .bash_logout
-file("/root/.bash_logout") { action :delete }
+%w{popularity-contest unity-lens-shopping whoopsie}.each do |pkg|
+  package pkg do
+    action :purge
+  end
+end

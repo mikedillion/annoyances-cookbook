@@ -17,15 +17,11 @@
 # limitations under the License.
 #
 
-case node['platform']
-when "redhat","centos","scientific","fedora"
-  include_recipe "annoyances::rhel"
-when "ubuntu","debian"
-  include_recipe "annoyances::ubuntu"
-end
+include_recipe "annoyances::#{node['platform_family']}"
 
 ruby_block "remove annoyances from run list" do
   block do
     node.run_list.remove("recipe[annoyances]")
   end
+  only_if { node.run_list.include("recipe[annoyances]") }
 end
