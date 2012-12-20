@@ -38,5 +38,6 @@ end
 %w{popularity-contest unity-lens-shopping whoopsie}.each do |pkg|
   package pkg do
     action :purge
+    ignore_failure true
   end
 end
