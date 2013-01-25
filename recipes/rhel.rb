@@ -21,13 +21,17 @@
 execute("iptables -F") { ignore_failure true }.run_action(:run)
 
 #turn off SELinux
-execute("setenforce 0") { ignore_failure true }.run_action(:run)
+if Chef::ShellOut.new("getenforce").run_command.stdout != "Disabled\n" then
+  execute("setenforce 0") { ignore_failure true }.run_action(:run)
+end
 
-execute"rpm --nodeps -e httpd" do
-  ignore_failure true
-  not_if do
-    node['recipes'].include?("apache2") ||
-      node.run_state[:seen_recipes].include?("apache2")
+if Chef::ShellOut.new("rpm -q httpd").run_command.status.success? then
+  execute "rpm --nodeps -e httpd" do
+    ignore_failure true
+    not_if do
+      node['recipes'].include?("apache2") ||
+        node.run_state[:seen_recipes].include?("apache2")
+    end
   end
 end
 
