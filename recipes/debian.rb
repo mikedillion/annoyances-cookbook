@@ -27,7 +27,13 @@ end.run_action(:run)
 service("apparmor") { action [:stop,:disable] }
 
 #turn off byobu
-file("/etc/profile.d/Z98-byobu") { action :delete }
+file("/etc/profile.d/Z98-byobu") {
+  action :delete
+  not_if do
+    node['recipes'].include?("byobu") ||
+      node.run_state[:seen_recipes].include?("byobu")
+  end
+}
 
 #turn off whoopsie (Ubuntu crash database submission daemon)
 service("whoopsie") do
