@@ -41,6 +41,6 @@ file("/root/.bash_logout") { action :delete }
 #disable the pile of desktop services that get turned on by default
 %w{autofs avahi-daemon bluetooth cpuspeed cups gpm haldaemon messagebus}.each do |svc|
   service svc do
-    :disable
+    action [:stop, :disable]
   end
 end
