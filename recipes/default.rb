@@ -24,6 +24,6 @@ if not Chef::Config[:solo] then
     block do
       node.run_list.remove("recipe[annoyances]")
     end
-    only_if { node.run_list.include("recipe[annoyances]") }
+    only_if { node.run_list.include?("recipe[annoyances]") }
   end
 end
