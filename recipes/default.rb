@@ -23,5 +23,5 @@ ruby_block "remove annoyances from run list" do
   block do
     node.run_list.remove("recipe[annoyances]")
   end
-  only_if { node.run_list.include("recipe[annoyances]") }
+  only_if { node.run_list.include?("recipe[annoyances]") }
 end
