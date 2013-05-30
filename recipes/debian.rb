@@ -2,7 +2,7 @@
 # Cookbook Name:: annoyances
 # Recipe:: debian
 #
-# Copyright 2012, Opscode, Inc.
+# Copyright 2012-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,12 @@ end.run_action(:run)
 service("apparmor") { action [:stop,:disable] }
 
 #turn off byobu
-file("/etc/profile.d/Z98-byobu") { action :delete }
+file("/etc/profile.d/Z98-byobu") {
+  action :delete
+  not_if do
+    node.recipe?("byobu")
+  end
+}
 
 #turn off whoopsie (Ubuntu crash database submission daemon)
 service("whoopsie") do

@@ -1,3 +1,10 @@
+## v0.4.0
+* updated for Chef 11 (@alanthing)
+* fixed use of include? (@mikedillion)
+* Red Hat enables some ridiculous services by default on servers (@blasdelf)
+* support running in chef-solo (@blasdelf)
+* don't disable byobu if the cookbook for it is in use (@blasdelf)
+
 ## v0.3.0
 * refactored to use platform_family (thanks @jtimberman)
 

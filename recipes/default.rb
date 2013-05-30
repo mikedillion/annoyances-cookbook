@@ -2,7 +2,7 @@
 # Cookbook Name:: annoyances
 # Recipe:: default
 #
-# Copyright 2012, Opscode, Inc.
+# Copyright 2012-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +19,11 @@
 
 include_recipe "annoyances::#{node['platform_family']}"
 
-ruby_block "remove annoyances from run list" do
-  block do
-    node.run_list.remove("recipe[annoyances]")
+if not Chef::Config[:solo] then
+  ruby_block "remove annoyances from run list" do
+    block do
+      node.run_list.remove("recipe[annoyances]")
+    end
+    only_if { node.run_list.include?("recipe[annoyances]") }
   end
-  only_if { node.run_list.include?("recipe[annoyances]") }
 end
