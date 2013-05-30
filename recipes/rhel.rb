@@ -21,12 +21,12 @@
 execute("iptables -F") { ignore_failure true }.run_action(:run)
 
 #turn off SELinux
-if Chef::ShellOut.new("getenforce").run_command.stdout != "Disabled\n" then
+if Mixlib::ShellOut.new("getenforce").run_command.stdout != "Disabled\n" then
   execute("setenforce 0") { ignore_failure true }.run_action(:run)
 end
 
 #uninstall httpd
-if Chef::ShellOut.new("rpm -q httpd").run_command.status.success? then
+if Mixlib::ShellOut.new("rpm -q httpd").run_command.status.success? then
   execute "rpm --nodeps -e httpd" do
     ignore_failure true
     not_if do
