@@ -30,8 +30,7 @@ service("apparmor") { action [:stop,:disable] }
 file("/etc/profile.d/Z98-byobu") {
   action :delete
   not_if do
-    node['recipes'].include?("byobu") ||
-      node.run_state[:seen_recipes].include?("byobu")
+    node.recipe?("byobu")
   end
 }
 

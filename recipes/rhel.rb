@@ -30,8 +30,7 @@ if Chef::ShellOut.new("rpm -q httpd").run_command.status.success? then
   execute "rpm --nodeps -e httpd" do
     ignore_failure true
     not_if do
-      node['recipes'].include?("apache2") ||
-        run_context.loaded_recipe?("apache2")
+      node.recipe?("apache2")
     end
   end
 end
