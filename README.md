@@ -36,16 +36,25 @@ raised.
 
 Removes any preexisting firewall rules, turns off SELinux, uninstalls
 httpd if it's on for some reason and removes /root/.bash_logout if it
-exists.
+exists. Turns off desktop services autofs, avahi-daemon, bluetooth,
+puspeed, cups, gpm, haldaemon and messagebus.
 
 If the `apache2` recipe is on the node, the httpd package will not be
 removed.
 
+## fedora
+
+Just calls `::rhel`.
+
 ## debian
 
-Does an "apt-get update", turns off apparmor and turns off byobu.
-Removes whoopsie, popularity-contest, and unity-lens-shopping if this
-ever got on a server.
+Does an "apt-get update" and turns off apparmor and byobu (unless you
+want it). Removes whoopsie, popularity-contest and unity-lens-shopping
+if this ever got on a server.
+
+## ubuntu
+
+Just calls `::debian`.
 
 Usage
 =====
@@ -62,7 +71,7 @@ License and Author
 Author:: Matt Ray (<matt@opscode.com>)
 Author:: Joshua Timberman (<joshua@opscode.com>)
 
-Copyright 2012 Opscode, Inc.
+Copyright 2012-2013 Opscode, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

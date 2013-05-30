@@ -2,7 +2,7 @@
 # Cookbook Name:: annoyances
 # Recipe:: rhel
 #
-# Copyright 2012, Opscode, Inc.
+# Copyright 2012-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ if Chef::ShellOut.new("getenforce").run_command.stdout != "Disabled\n" then
   execute("setenforce 0") { ignore_failure true }.run_action(:run)
 end
 
+#uninstall httpd
 if Chef::ShellOut.new("rpm -q httpd").run_command.status.success? then
   execute "rpm --nodeps -e httpd" do
     ignore_failure true
