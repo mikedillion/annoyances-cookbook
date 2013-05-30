@@ -30,7 +30,7 @@ if Chef::ShellOut.new("rpm -q httpd").run_command.status.success? then
     ignore_failure true
     not_if do
       node['recipes'].include?("apache2") ||
-        node.run_state[:seen_recipes].include?("apache2")
+        run_context.loaded_recipe?("apache2")
     end
   end
 end
