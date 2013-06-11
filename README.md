@@ -49,8 +49,8 @@ Just calls `::rhel`.
 ## debian
 
 Does an "apt-get update" and turns off apparmor and byobu (unless you
-want it). Removes whoopsie, popularity-contest and unity-lens-shopping
-if this ever got on a server.
+want it). Removes whoopsie, popularity-contest, unity-lens-shopping and
+kerneloops-daemon if this ever got on a server.
 
 ## ubuntu
 

@@ -40,7 +40,13 @@ service("whoopsie") do
   ignore_failure true
 end
 
-%w{popularity-contest unity-lens-shopping whoopsie}.each do |pkg|
+#turn off kerneloops (kernel crash report daemon)
+service("kerneloops") do
+  action [:stop,:disable]
+  ignore_failure true
+end
+
+%w{popularity-contest unity-lens-shopping whoopsie kerneloops-daemon}.each do |pkg|
   package pkg do
     action :purge
     ignore_failure true
